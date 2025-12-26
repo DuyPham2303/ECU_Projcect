@@ -190,7 +190,3 @@ Luồng điều phối dữ liệu CAN trong AUTOSAR đảm bảo:
 
 ---
 
-📌 Tài liệu phù hợp cho:
-- Sinh viên / kỹ sư học AUTOSAR
-- Phân tích Communication Stack
-- Làm tài liệu README cho repository Automotive / Embedded
