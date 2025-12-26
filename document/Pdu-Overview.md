@@ -93,8 +93,3 @@ COM có thể áp dụng bộ lọc để loại bỏ signal không cần thiế
 PduR là mô-đun trung tâm của Communication Stack trong AUTOSAR Classic, đảm bảo khả năng định tuyến linh hoạt, hỗ trợ gateway đa bus và tăng tính tái sử dụng phần mềm.
 
 ---
-
-**Tài liệu phục vụ cho:**
-- Giảng dạy AUTOSAR Classic
-- Tham khảo triển khai Communication Stack
-- Onboarding kỹ sư Embedded / Automotive
