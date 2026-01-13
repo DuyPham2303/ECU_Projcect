@@ -1,6 +1,7 @@
 #include "csv_io.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <ctype.h>
 
@@ -20,12 +21,12 @@ static void skip_WhiteSpace(char *c)
         c++;
     }
 }
-static void Load_DB(FILE *p)
+static void Load_Csv(FILE *file)
 {
     char line[50];
     for (int i = 0; i < total_pairs; i++)
     {
-        fgets(line, sizeof(line), p);
+        fgets(line, sizeof(line), file);
         // cấp phát mem để lưu cặp key-value hiện tại
         pairs = (DataPairs *)realloc(pairs, sizeof(DataPairs) * (i + 1));
         if (pairs == NULL)
@@ -76,16 +77,15 @@ static void FreeMem()
  */
 int csv_getInt(const char *key)
 {
-    // đọc vê csv -> lưu vào mảng
+    // đọc vê csv
     FILE *file = fopen(DATA_BASE, "r");
     if (file == NULL)
     {
         perror("Mở file thất bại");
         return -1;
     }
-
-    // xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
-    Load_DB(file);
+    // Tiến hành đọc và xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
+    Load_Csv(file);
 
     // so sánh dữ liệu trong DataPairs với key -> đọc về value tương ứng
     int value = 0;
@@ -118,7 +118,7 @@ void csv_setInt(const char *key, int value)
     }
 
     // xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
-    Load_DB(file);
+    Load_Csv(file);
 
     // tìm kiếm key cần update value
     for (int i = 0; i < total_pairs; i++)
@@ -129,7 +129,7 @@ void csv_setInt(const char *key, int value)
             // copy value vào temp
             snprintf(temp, sizeof(temp), "%d", value);
 
-            // điều chỉnh lại kích thước chuỗi key
+            // điều chỉnh lại kích thước chuỗi value
             pairs[i].value = (char *)realloc(pairs[i].value, strlen(temp) + 1);
 
             // copy value mới vào mem đã điều chỉnh
@@ -175,12 +175,12 @@ const char *csv_getString(const char *key)
         return NULL;
     }
     // xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
-    Load_DB(file);
+    Load_Csv(file);
 
     // so sánh dữ liệu trong DataPairs với key -> đọc về value tương ứng
     for (int i = 0; i < total_pairs; i++)
     {
-         if (strcmp(pairs[i].key, key) == 0)
+        if (strcmp(pairs[i].key, key) == 0)
         {
             key = pairs[i].value;
             break;
@@ -190,34 +190,35 @@ const char *csv_getString(const char *key)
     FreeMem();
     return key;
 }
-void csv_getChar(const char *key, char *frame_str, size_t FrameSize)
-{
-    // đọc vê csv -> lưu vào mảng
-    FILE *file = fopen(DATA_BASE, "r");
-    if (file == NULL)
-    {
-        perror("Mở file thất bại");
-        return;
-    }
-    // cấp phát heap lưu dữ liệu đọc về từ csv
-    pairs = (DataPairs *)malloc(sizeof(DataPairs));
-    if (pairs == NULL)
-    {
-        perror("cấp phát heap thất bại");
-        return;
-    }
-    // xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
-    Load_DB(file);
 
-    // so sánh dữ liệu trong DataPairs với key -> đọc về value tương ứng
-    for (int i = 0; i < total_pairs; i++)
-    {
-        if (strcmp(pairs[i].key, key) == 0)
-        {
-            strncpy(frame_str,pairs[i].value,FrameSize);
-            break;
-        }
-    }
-    fclose(file);
-    FreeMem();
-}
+// void csv_getChar(const char *key, char *frame_str, size_t FrameSize)
+// {
+//     // đọc vê csv -> lưu vào mảng
+//     FILE *file = fopen(DATA_BASE, "r");
+//     if (file == NULL)
+//     {
+//         perror("Mở file thất bại");
+//         return;
+//     }
+//     // cấp phát heap lưu dữ liệu đọc về từ csv
+//     pairs = (DataPairs *)malloc(sizeof(DataPairs));
+//     if (pairs == NULL)
+//     {
+//         perror("cấp phát heap thất bại");
+//         return;
+//     }
+//     // xử lý phân tách dữ liệu từng dòng -> lưu vào struct DataPairs
+//     Load_Csv(file);
+
+//     // so sánh dữ liệu trong DataPairs với key -> đọc về value tương ứng
+//     for (int i = 0; i < total_pairs; i++)
+//     {
+//         if (strcmp(pairs[i].key, key) == 0)
+//         {
+//             strncpy(frame_str,pairs[i].value,FrameSize);
+//             break;
+//         }
+//     }
+//     fclose(file);
+//     FreeMem();
+// }

@@ -2,7 +2,6 @@
  * @file    CSV_IO_h
  * @brief   Cung cấp API đọc/ghi file CSV dạng key-value dùng cho tất cả các module MCAL.
  * @version 1.0
- * @date    2024-09-11
  * @author  HALA Academy
  * @website https://hala.edu.vn/
  ***************************************************************************/
@@ -36,5 +35,5 @@ const char* csv_getString(const char* key);
  * @param  frame con trỏ tới mảng dữ liệu đã parse vào từng byte
  * @param  size_t kích thước của frame
  */
-void csv_getChar(const char* key,char* frame,size_t FrameSize);
+//void csv_getChar(const char* key,char* frame,size_t FrameSize);
 #endif // CSV_IO_H

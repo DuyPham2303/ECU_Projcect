@@ -26,8 +26,6 @@ void test_MCAL()
     while (1)
     {
         //đọc từ file csv
-        Dio_WriteChannel(CHANNEL_DIO, direction);
-        Pwm_SetDutyCycle(CHANNEL_DIO, duty);
         int temp = Adc_ReadChannel(CHANNEL_TEMP);
         int current = Adc_ReadChannel(CHANNEL_CURRENT);
         int torque = Adc_ReadChannel(CHANNEL_TORQUE);
@@ -53,10 +51,12 @@ void test_MCAL()
         //ghi lên file csv
         if(duty == 5 || duty == 10 || duty == 15){
             direction = direction == 1 ? -1 : 1;    //đổi chiều quay động cơ
+            Dio_WriteChannel(CHANNEL_DIO, direction);
         }
 
         //ghi tín hiệu pwm xuống driver 
         duty += 1;    
+        Pwm_SetDutyCycle(CHANNEL_DIO, duty);
         printf("Ghi duty = %d %%\n", duty);  
         //mô phỏng tgian đọc/ghi tín hiệu từ file csv
         sleep(1);    
@@ -115,8 +115,8 @@ void test_IoHwAb()
 
 int main()
 {
-    //test_MCAL();
-    test_IoHwAb();
+    test_MCAL();
+    //test_IoHwAb();
     // while (1)
     // {
     //     // Loop liên tục để lấy tốc độ đặt (Mô phỏng ngắt CAN)
@@ -131,7 +131,6 @@ int main()
     //     {
     //         printf("Tốc độ không hợp lệ\n", engineRpm);
     //     }
-
     //     uint16_t rpm;
     //     if (IoHwAb_ReadRpm(&rpm) == E_OK)
     //     {

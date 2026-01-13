@@ -2,7 +2,6 @@
  * @file    CSV_IO_h
  * @brief   Cung cấp API đọc/ghi file CSV dạng key-value dùng cho tất cả các module MCAL.
  * @version 1.0
- * @date    2024-09-11
  * @author  HALA Academy
  * @website https://hala.edu.vn/
  ***************************************************************************/

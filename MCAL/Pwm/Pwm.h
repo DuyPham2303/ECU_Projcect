@@ -2,7 +2,6 @@
  * @file    PWM_h
  * @brief   Cung cấp API để mô phỏng thay đổi tốc độ (duty cycle) của động cơ
  * @version 1.0
- * @date    2024-09-11
  * @author  HALA Academy
  * @website https://hala.edu.vn/
  ***************************************************************************/

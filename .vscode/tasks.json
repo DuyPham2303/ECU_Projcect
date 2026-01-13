@@ -1,0 +1,29 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "GCC 13.1 DEBUGGER",
+            "command": "C:\\mingw64\\bin\\gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "*.c",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-lws2_32"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "compiler: C:\\mingw64\\bin\\gcc.exe"
+        }
+    ],
+    "version": "2.0.0"
+}
